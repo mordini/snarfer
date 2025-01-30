@@ -1,10 +1,19 @@
 <script setup>
+import HelloWorld from './HelloWorld.vue'
+import TheWelcome from './TheWelcome.vue'
 </script>
 
 <template>
-  <router-view></router-view> <!-- This will load the current page -->
-</template>
+  <header>
+    <div class="wrapper">
+      <HelloWorld msg="Welcome to Snarfer - Your Adventure Awaits!" />
+    </div>
+  </header>
 
+  <main>
+    <TheWelcome />
+  </main>
+</template>
 
 <style scoped>
 header {

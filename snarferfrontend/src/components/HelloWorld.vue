@@ -1,20 +1,26 @@
 <script setup>
+import { useRouter } from 'vue-router'
+
 defineProps({
   msg: {
     type: String,
     required: true,
   },
 })
+
+const router = useRouter()
+
+const goToLogin = () => {
+  router.push('/login') // Navigate to LoginPage
+}
 </script>
 
 <template>
   <div class="greetings">
     <h1 class="green">{{ msg }}</h1>
-    <h3>
-      You’ve successfully created a project with
-      <a href="https://vite.dev/" target="_blank" rel="noopener">Vite</a> +
-      <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>.
-    </h3>
+    
+    <!-- Login Button -->
+    <button class="login-button" @click="goToLogin">Login</button>
   </div>
 </template>
 
@@ -33,6 +39,23 @@ h3 {
 .greetings h1,
 .greetings h3 {
   text-align: center;
+}
+
+.login-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color: #42b883;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #35495e;
 }
 
 @media (min-width: 1024px) {
