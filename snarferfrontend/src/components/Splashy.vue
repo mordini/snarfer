@@ -6,7 +6,7 @@ import TheWelcome from './TheWelcome.vue'
 <template>
   <header>
     <div class="wrapper">
-      <HelloWorld msg="Welcome to Snarfer - Your Adventure Awaits!" />
+      <HelloWorld msg="Welcome to Snarfer - Your Adventure Awaits!" /> <!--Contains Login Button-->
     </div>
   </header>
 

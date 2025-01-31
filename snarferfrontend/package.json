@@ -13,9 +13,11 @@
   },
   "dependencies": {
     "@primevue/themes": "^4.2.5",
+    "leaflet": "^1.9.4",
     "pinia": "^2.3.1",
     "primevue": "^4.2.5",
     "vue": "^3.5.13",
+    "vue-leaflet": "^0.1.0",
     "vue-router": "^4.5.0"
   },
   "devDependencies": {

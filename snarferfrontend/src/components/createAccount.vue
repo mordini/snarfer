@@ -1,15 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 
-defineProps({
-  msg: {
-    type: String,
-    required: true,
-  },
-})
-
-const router = useRouter()
 const username = ref('')
 const password = ref('')
 
@@ -17,21 +8,13 @@ const password = ref('')
 const handleLogin = () => {
   console.log('Username:', username.value)
   console.log('Password:', password.value)
-  if (username.value === 'admin' && password.value === 'admin') {
-    router.push('/homePage') // Navigate to home page
-  } else {
-    alert('Invalid username or password')
-  }
-}
-const goToCreateAccountPage = () => {
-  router.push('/createAccount') // Navigate to createAccount page
 }
 </script>
 
 <template>
   <header>  
     <div class="wrapper">
-      <h1>Log in to Snarfer</h1>
+      <h1>Create Account</h1>
     </div>
   </header>
 
@@ -42,7 +25,7 @@ const goToCreateAccountPage = () => {
       <button class="login-button" @click="handleLogin">Login</button>
     </div>
     <div class="register-container">
-      <button class="register-button" @click="goToCreateAccountPage">Create New Account</button>
+      <button class="register-button" @click="handleRegister">Create New Account</button>
     </div>
   </main>
 </template>

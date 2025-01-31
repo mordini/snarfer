@@ -10,8 +10,11 @@ defineProps({
 
 const router = useRouter()
 
-const goToLogin = () => {
+const goToLoginPage = () => {
   router.push('/login') // Navigate to LoginPage
+}
+const goToCreateAccountPage = () => {
+  router.push('/createAccount') // Navigate to createAccount page
 }
 </script>
 
@@ -19,8 +22,10 @@ const goToLogin = () => {
   <div class="greetings">
     <h1 class="green">{{ msg }}</h1>
     
-    <!-- Login Button -->
-    <button class="login-button" @click="goToLogin">Login</button>
+    <!-- Login Page Button -->
+    <button class="loginPage-button" @click="goToLoginPage">Existing User</button>
+    <!-- CreateAccountPage Button -->
+    <button class="createAccountPage-button" @click="goToCreateAccountPage">New User</button>
   </div>
 </template>
 
@@ -41,7 +46,7 @@ h3 {
   text-align: center;
 }
 
-.login-button {
+.loginPage-button {
   display: block;
   margin: 20px auto;
   padding: 10px 20px;
@@ -54,7 +59,24 @@ h3 {
   transition: background-color 0.3s ease;
 }
 
-.login-button:hover {
+.loginPage-button:hover {
+  background-color: #35495e;
+}
+
+.createAccountPage-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color: #077443;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.createAccountPage-button:hover {
   background-color: #35495e;
 }
 
