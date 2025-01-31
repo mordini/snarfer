@@ -9,7 +9,7 @@ const routes = [
   { path: '/login', component: LoginPage },
   { path: '/createAccount', component: createAccount},
   { path: '/homePage', component: homePage},
-  { path: '/:pathMatch(.*)*', redirect: '/' } // Redirect all other paths to the default page
+  { path: '/:pathMatch(.*)*', redirect: '/' } // Redirect all other paths to Splashy
 ]
 
 const router = createRouter({

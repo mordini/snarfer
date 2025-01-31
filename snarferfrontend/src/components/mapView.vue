@@ -1,22 +1,25 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import L from 'leaflet'
-
-const mapContainer = ref(null)
+import "leaflet/dist/leaflet.css"; // Import Leaflet's CSS
 
 onMounted(() => {
-  const map = L.map(mapContainer.value).setView([40.7128, -74.0060], 13)
+  const map = L.map('map').setView([51.505, -0.09], 13); // Initialize map AFTER DOM is ready
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map)
-})
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+});
 </script>
 
 <template>
-  <div ref="mapContainer" class="map-container"></div>
+  <div id="map"></div>
 </template>
 
 <style scoped>
-
+#map { 
+  width: 100%;
+  height: 500px; /* Adjust this as needed */
+}
 </style>
