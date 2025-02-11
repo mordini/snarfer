@@ -1,5 +1,5 @@
 <script setup>
-import mapView from './mapView.vue'
+import mapView from './mapView.vue'  //To be changed.  This is a placeholder
 
 
 </script>
