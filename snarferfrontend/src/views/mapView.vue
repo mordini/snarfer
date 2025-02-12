@@ -2,26 +2,27 @@
 // TODO:A. create/edit mode. Users can click on a point and make it a POI. Or click on a POI and edit it. Permissions required.
 //  B. navigation mode. Current location updated frequently. POIs are hidden. 
 //  C. explore POIs mode. POIs and "conquered" areas are shown(color coded). Users can click on a POI to see details.
-import { onMounted } from 'vue'
-import "leaflet/dist/leaflet.css"; // Import Leaflet's CSS
-import { useRouter } from 'vue-router'
-import { initializeMap } from '@/components/useMap' // Import the map logic
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { initializeMap, createMarker, addMapClickListener } from '@/components/useMap';
 
-defineProps({
-  msg: {
-    type: String,
-    required: true,
-  },
-})
+const router = useRouter();
+let map;
 
-const router = useRouter()
-
-// Initialize map
 onMounted(() => {
-  initializeMap('map', router); // Pass router for navigation
-});
+  map = initializeMap('map'); // Step 1: Initialize map
 
+  // Populate map with predefined markers. TEMPORARY. FIX THIS by adding markers from the database
+  createMarker(map, 35.7, -78.6, 1, router);
+  createMarker(map, 35.8, -78.7, 2, router);
+  createMarker(map, 35.75, -78.65, 3, router);
+
+  // Add click listener to create new POIs
+  addMapClickListener(map);
+});
 </script>
+
+
 
 
 
@@ -45,21 +46,6 @@ html, body {
     left: 0;
     height: 100%;
     width: 100%;
-}
-#edit-button {
-  display: block;
-  margin: 20px auto;
-  padding: 10px 20px;
-  font-size: 1rem;
-  color: white;
-  background-color: #42b883;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-#edit-button:hover {
-  background-color: #35495e;
 }
 
 </style>
