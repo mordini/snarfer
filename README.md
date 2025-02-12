@@ -4,7 +4,7 @@
 ---
 
 ## 🚀 Main front end files
-0. **Splashy.vue**
+1. **Splashy.vue**
 
 The splash page. First thing users see if they aren't logged in.
 
@@ -18,7 +18,7 @@ Currently, just holds mapView, but will hold Featured Quests, basic profile info
 
 Will be connected to POI search, Quests search, mapView, and profileView.
 
-4. **mapView.vue**
+3. **mapView.vue**
 
 Displays a full-screen interactive map.
 
@@ -28,7 +28,7 @@ Formats the map display.
 
 Highly ranked users will gain the ability to click on a spot and create a POI there, or edit existing POIs.
 
-6. **useMap.js**
+4. **useMap.js**
 
 Defines JS functions for map interaction.
 
