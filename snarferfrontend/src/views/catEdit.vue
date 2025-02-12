@@ -1,97 +1,111 @@
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
-defineProps({
-  msg: {
-    type: String,
-    required: true,
-  },
-})
+const route = useRoute();
+const router = useRouter();
 
-const router = useRouter()
-const username = ref('')
-const password = ref('')
+// Check if we are editing an existing POI or creating a new one
+const poiId = ref(route.query.poiId || null);
+const lat = ref(route.query.lat || '');
+const lng = ref(route.query.lng || '');
 
-// Dummy Login Function.   FIX THIS
-const handleLogin = () => {
-  console.log('Username:', username.value)
-  console.log('Password:', password.value)
-  if (username.value === 'admin' && password.value === 'admin') {
-    router.push('/homePage') // Navigate to home page
-  } else {
-    alert('Invalid username or password')
+// Form fields
+const poiName = ref('');
+const poiDescription = ref('');
+
+onMounted(() => {
+  if (poiId.value) {
+    // Fetch existing POI details (Placeholder data)
+    poiName.value = `POI ${poiId.value}`;
+    poiDescription.value = `Description for POI ${poiId.value}`;
+  } else if (lat.value && lng.value) {
+    // If coming from map click, pre-fill lat/lng but leave name/description empty
+    poiName.value = `New POI at ${lat.value}, ${lng.value}`;
   }
-}
-const goToCreateAccountPage = () => {
-  router.push('/createAccount') // Navigate to createAccount page
-}
+});
+
+// Save function (placeholder logic)
+const saveChanges = () => {
+  console.log(`Saving POI:`, {
+    name: poiName.value,
+    description: poiDescription.value,
+    lat: lat.value,
+    lng: lng.value,
+  });
+
+  // Redirect back to map after saving
+  router.push('/homePage');
+};
 </script>
 
 <template>
-  <header>  
-    <div class="wrapper">
-      <h1>Catalog Edit Page</h1>
-    </div>
-  </header>
+  <div class="container">
+    <h1>{{ poiId ? `Edit POI ${poiId}` : "Create a New POI" }}</h1>
 
-  <main>
-    <div class="login-container">
-      <input type="text" v-model="username" placeholder="Username" class="input-box" />
-      <input type="password" v-model="password" placeholder="Password" class="input-box" />
-      <button class="login-button" @click="handleLogin">Login</button>
-    </div>
-    <div class="register-container">
-      <button class="register-button" @click="goToCreateAccountPage">Create New Account</button>
-    </div>
-  </main>
+    <label>POI Name:</label>
+    <input v-model="poiName" type="text" placeholder="Enter POI name" />
+
+    <label>Description:</label>
+    <textarea v-model="poiDescription" placeholder="Enter details"></textarea>
+
+    <label v-if="lat && lng">Coordinates:</label>
+    <p v-if="lat && lng">Lat: {{ lat }}, Lng: {{ lng }}</p>
+
+    <button @click="saveChanges">Save POI</button>
+    <button @click="router.push('/homePage')">Cancel</button>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+.container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
 h1 {
-  font-size: 1.8rem;
-  color: #35495e;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
 }
 
-.login-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 300px;
-  margin: 50px auto;
-}
-
-.input-box {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.login-button {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  color: white;
-  background-color: #42b883;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+label {
+  display: block;
+  text-align: left;
   margin-top: 10px;
 }
 
-.login-button:hover {
-  background-color: #35495e;
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+button {
+  margin: 10px 5px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:first-of-type {
+  background-color: #42b883;
+  color: white;
+}
+
+button:last-of-type {
+  background-color: #ccc;
 }
 </style>

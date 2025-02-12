@@ -1,6 +1,8 @@
 <script setup>
+// TODO:A. create/edit mode. Users can click on a point and make it a POI. Or click on a POI and edit it. Permissions required.
+//  B. navigation mode. Current location updated frequently. POIs are hidden. 
+//  C. explore POIs mode. POIs and "conquered" areas are shown(color coded). Users can click on a POI to see details.
 import { onMounted } from 'vue'
-import L from 'leaflet'
 import "leaflet/dist/leaflet.css"; // Import Leaflet's CSS
 import { useRouter } from 'vue-router'
 import { initializeMap } from '@/components/useMap' // Import the map logic
@@ -16,12 +18,8 @@ const router = useRouter()
 
 // Initialize map
 onMounted(() => {
-  initializeMap('map');
+  initializeMap('map', router); // Pass router for navigation
 });
-
-const goToCatEditPage = () => {
-  router.push('/catEdit') // Navigate to catEdit page to edit this catalog entry
-}
 
 </script>
 
@@ -31,17 +29,22 @@ const goToCatEditPage = () => {
     
   <div id="map"></div>
 
-  <main>
-    <div>
-      <button class="edit-button" @click="goToCatEditPage">Catalog Page For this exact point you done clicked on</button>
-    </div>
-  </main>
 </template>
 
 <style scoped>
-#map { 
-  width: 100%;
-  height: 900px; /* Adjust this as needed */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
 }
 #edit-button {
   display: block;
