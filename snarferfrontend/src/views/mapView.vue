@@ -24,8 +24,6 @@ onMounted(() => {
 
 
 
-
-
 <template>
     
   <div id="map"></div>

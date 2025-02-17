@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { addPOI } from '@/components/useMap';
 
 const route = useRoute();
 const router = useRouter();
@@ -25,18 +26,23 @@ onMounted(() => {
   }
 });
 
-// Save function (placeholder logic)
 const saveChanges = () => {
-  console.log(`Saving POI:`, {
-    name: poiName.value,
-    description: poiDescription.value,
-    lat: lat.value,
-    lng: lng.value,
-  });
+  if (!poiName.value.trim() || !poiDescription.value.trim()) {
+    alert("Please enter a name and description for the POI.");
+    return;
+  }
+
+  // If creating a new POI
+  if (!poiId.value && lat.value && lng.value) {
+    addPOI(lat.value, lng.value, poiName.value, poiDescription.value, "user123");
+  }
 
   // Redirect back to map after saving
   router.push('/homePage');
 };
+
+
+
 </script>
 
 <template>
