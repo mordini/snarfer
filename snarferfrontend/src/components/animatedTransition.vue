@@ -5,7 +5,7 @@ import { DotLottieVue } from '@lottiefiles/dotlottie-vue'
 const props = defineProps({
   src: String, // Lottie animation source
   pageKey: String, // Unique key to track the page session
-  duration: { type: Number, default: 3000 } // Animation duration (default: 3s)
+  duration: { type: Number, default: 5000 } // Animation duration (default: 5s)
 });
 
 const showAnimation = ref(false);
@@ -13,12 +13,13 @@ const showContent = ref(false);
 const contentVisible = ref(false); // Controls fade-in effect
 
 onMounted(() => {
-  const hasSeenPage = sessionStorage.getItem(`seen_${props.pageKey}`);
+    // The following section is commented out so that I can see the animation working every time. 
+  /*const hasSeenPage = sessionStorage.getItem(`seen_${props.pageKey}`);
 
   if (hasSeenPage) {
     showContent.value = true;
     contentVisible.value = true;
-  } else {
+  } else {*/
     // Show animation first
     showAnimation.value = true;
     sessionStorage.setItem(`seen_${props.pageKey}`, 'true');
@@ -33,7 +34,8 @@ onMounted(() => {
       }, 200);
     }, props.duration);
   }
-});
+);
+
 </script>
 
 <template>
@@ -59,7 +61,7 @@ onMounted(() => {
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: white; /* Adjust as needed */
+  background-color: rgb(160, 94, 8);
 }
 
 /* Lottie animation size */

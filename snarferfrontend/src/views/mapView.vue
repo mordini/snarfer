@@ -4,22 +4,17 @@
 //  C. explore POIs mode. POIs and "conquered" areas are shown(color coded). Users can click on a POI to see details.
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { initializeMap, createMarker, addMapClickListener } from '@/components/useMap';
+import { initializeMap, addMapClickListener, addPOI } from '@/components/useMap';
 
 const router = useRouter();
 let map;
 
 onMounted(() => {
-  map = initializeMap('map'); // Step 1: Initialize map
-
-  // Populate map with predefined markers. TEMPORARY. FIX THIS by adding markers from the database
-  createMarker(map, 35.7, -78.6, 1, router);
-  createMarker(map, 35.8, -78.7, 2, router);
-  createMarker(map, 35.75, -78.65, 3, router);
-
+  map = initializeMap('map', router);
   // Add click listener to create new POIs
   addMapClickListener(map);
 });
+
 </script>
 
 

@@ -17,7 +17,7 @@ const password = ref('')
 const handleLogin = () => {
   console.log('Username:', username.value)
   console.log('Password:', password.value)
-  if (username.value === 'admin' && password.value === 'admin') {
+  if (username.value === 'Explorer' && password.value === 'Explorer') {
     router.push('/homePage') // Navigate to home page
   } else {
     alert('Invalid username or password')
