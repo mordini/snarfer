@@ -13,17 +13,29 @@ const showContent = ref(false);
 const contentVisible = ref(false); // Controls fade-in effect
 
 onMounted(() => {
-    // The following section is commented out so that I can see the animation working every time. 
-  /*const hasSeenPage = sessionStorage.getItem(`seen_${props.pageKey}`);
+  // Get the last time the page was opened
+  const lastOpened = sessionStorage.getItem(`lastOpened_${props.pageKey}`);
+  const currentTime = new Date().getTime();
 
-  if (hasSeenPage) {
-    showContent.value = true;
-    contentVisible.value = true;
-  } else {*/
-    // Show animation first
+  // Check if it's been more than 5 minutes since the last visit
+  if (lastOpened && currentTime - lastOpened > 5 * 60 * 1000) {
+    // More than 5 minutes since last visit, show animation
     showAnimation.value = true;
     sessionStorage.setItem(`seen_${props.pageKey}`, 'true');
+    sessionStorage.setItem(`lastOpened_${props.pageKey}`, currentTime.toString());
+  } else if (!lastOpened) {
+    // First visit or no lastOpened value, show animation
+    showAnimation.value = true;
+    sessionStorage.setItem(`seen_${props.pageKey}`, 'true');
+    sessionStorage.setItem(`lastOpened_${props.pageKey}`, currentTime.toString());
+  } else {
+    // Less than 5 minutes since the last visit, show content directly
+    showContent.value = true;
+    contentVisible.value = true;
+  }
 
+  // Handle animation duration and content display
+  if (showAnimation.value) {
     setTimeout(() => {
       showAnimation.value = false;
       showContent.value = true;
@@ -34,8 +46,7 @@ onMounted(() => {
       }, 200);
     }, props.duration);
   }
-);
-
+});
 </script>
 
 <template>
@@ -52,6 +63,7 @@ onMounted(() => {
     <slot />
   </div>
 </template>
+
 
 <style scoped>
 /* Animation container */

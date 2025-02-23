@@ -3,12 +3,18 @@
 
 import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
-import lanternPic from '@/assets/newLanternpic.jpg';
-import sword_icon from '@/assets/sword_icon.jpg';
-import defaultIconSrc from '@/assets/questionMarkShaded.jpg';
-import sandwichPic from '@/assets/sandwichPic.jpg';
-import beerPic from '@/assets/beerPic.jpg';
-import cupcakePic from '@/assets/cupcakePic.jpg';
+import sword_icon from '@/assets/sword_and_shield.jpg';
+import defaultIconSrc from '@/assets/arena.png';
+import sandwichPic from '@/assets/beerMug.png';
+import beerPic from '@/assets/beerMug.png';
+import marketIcon from '@/assets/market.png'; // Marketplace icon
+import landmarkIcon from '@/assets/market.png'; // Landmark or monument icon
+import treeIcon from '@/assets/tree.png'; // Park and nature icon
+import stadiumIcon from '@/assets/arena.png'; // Arena or sports venue icon
+import questionMarkIcon from '@/assets/obelisk.png'; // Mystery locations icon
+import ritualIcon from '@/assets/obelisk.png'; // Ritual or legend-related icon
+import scrollIcon from '@/assets/swords.png'; // Historical event document or scroll icon
+
 
 
 
@@ -56,26 +62,41 @@ export function displayPOI(map, poi, router) {
   const { name, description, category } = poi.properties;
   // Determine the icon based on POI category
   let iconUrl;
-  switch (category) {
-    case 'history':
-      iconUrl = lanternPic;
-      break;
-    case 'food':
-      iconUrl = sandwichPic;
-      break;
+  switch (category) { 
+    case 'market':
+        iconUrl = marketIcon; // Example: Icon representing a marketplace
+        break;
+    case 'landmark':
+        iconUrl = landmarkIcon; // Example: Monument or landmark icon
+        break;
+    case 'restaurant':
+        iconUrl = sandwichPic; // Example: Food-related icon
+        break;
+    case 'park':
+        iconUrl = treeIcon; // Example: Tree icon for parks and nature
+        break;
+    case 'arena':
+        iconUrl = stadiumIcon; // Example: Sports or battle arena icon
+        break;
+    case 'brewery':
+        iconUrl = beerPic; // Example: Beer mug or brewery icon
+        break;
+    case 'mystery':
+        iconUrl = questionMarkIcon; // Example: A mysterious or hidden location icon
+        break;
+    case 'ritual':
+        iconUrl = ritualIcon; // Example: A symbolic or spiritual icon
+        break;
     case 'battle':
-      iconUrl = sword_icon;
-      break;
-    case 'drink':
-      iconUrl = beerPic;
-      break;
-    case 'curiosity':
-      iconUrl = cupcakePic;
-      break;
+        iconUrl = sword_icon; // Example: Crossed swords or battle icon
+        break;
+    case 'historical_event':
+        iconUrl = scrollIcon; // Example: Scroll or document icon for historical events
+        break;
     default:
-      iconUrl = defaultIconSrc;
-      break;
-  }
+        iconUrl = defaultIconSrc; // Fallback icon for undefined categories
+        break;
+}
   // Create marker with the determined icon
   const icon = L.icon({
     iconUrl,
@@ -104,41 +125,95 @@ export function displayPOI(map, poi, router) {
 
 function displayPredefinedPOIs(map, router) {
   const predefinedPOIs = [
-    { lat: 35.7796, lng: -78.6382, name: "Moore Square", description: "A historic park in downtown Raleigh.", category: "curiosity", userId: "user001" },
-    { lat: 35.7915, lng: -78.7811, name: "William B. Umstead State Park", description: "A scenic park with hiking trails.", category: "curiosity", userId: "user002" },
-    { lat: 35.7153, lng: -78.8820, name: "Lake Johnson Park", description: "A beautiful lake with walking trails.", category: "curiosity", userId: "user003" },
-    { lat: 35.7804, lng: -78.6391, name: "North Carolina State Capitol", description: "Historic government building from 1840.", category: "history", userId: "user004" },
-    { lat: 35.7877, lng: -78.6534, name: "Mordecai Historic Park", description: "Home of the oldest house in Raleigh.", category: "history", userId: "user005" },
-    { lat: 35.7955, lng: -78.6360, name: "Historic Oakwood Cemetery", description: "Resting place of notable North Carolinians.", category: "history", userId: "user006" },
-    { lat: 35.7796, lng: -78.6393, name: "Beasley's Chicken + Honey", description: "Famous for fried chicken and waffles.", category: "food", userId: "user007" },
-    // Food POIs
-    { lat: 35.7864, lng: -78.6650, name: "The Pit Authentic BBQ", description: "Classic Carolina barbecue spot.", category: "food", userId: "user008" },
-    { lat: 35.7912, lng: -78.6473, name: "Big Ed’s City Market Restaurant", description: "Southern comfort food and a Raleigh staple.", category: "food", userId: "user009" },
-    { lat: 35.9012, lng: -79.0513, name: "Al’s Burger Shack", description: "Famous for its juicy burgers and local ingredients.", category: "food", userId: "user019" },
-    { lat: 36.0726, lng: -79.7910, name: "Dame’s Chicken & Waffles", description: "A beloved Southern spot known for its waffle and chicken combos.", category: "food", userId: "user020" },
-    { lat: 35.5963, lng: -78.7310, name: "Stephenson’s BBQ", description: "A hidden gem serving Eastern North Carolina-style barbecue.", category: "food", userId: "user021" },
-    { lat: 35.9132, lng: -79.0558, name: "Mediterranean Deli", description: "Popular for fresh Mediterranean cuisine in Chapel Hill.", category: "food", userId: "user022" },
-    { lat: 35.7570, lng: -78.7440, name: "Guasaca Arepa & Grill", description: "Known for delicious arepas and South American flavors.", category: "food", userId: "user023" },
-  
-    // Drink POIs
-    { lat: 35.7820, lng: -78.6455, name: "Brewery Bhavana", description: "A unique mix of brewery, dim sum, and bookstore.", category: "drink", userId: "user013" },
-    { lat: 35.7918, lng: -78.6420, name: "Clouds Brewing", description: "German-inspired beer hall with a pour-your-own tap wall.", category: "drink", userId: "user014" },
-    { lat: 35.7782, lng: -78.6375, name: "The Raleigh Wine Shop", description: "A cozy spot for curated wine selections.", category: "drink", userId: "user015" },
-    { lat: 35.9111, lng: -79.0662, name: "The Crunkleton", description: "An upscale bar in Chapel Hill known for handcrafted cocktails.", category: "drink", userId: "user024" },
-    { lat: 35.2269, lng: -80.8415, name: "The Cellar at Duckworth's", description: "Speakeasy-style bar with vintage cocktails in Charlotte.", category: "drink", userId: "user025" },
-    { lat: 35.2286, lng: -80.8453, name: "The Suffolk Punch", description: "A modern brewery, coffeehouse, and restaurant in Charlotte.", category: "drink", userId: "user026" },
-    { lat: 35.9940, lng: -78.8996, name: "Fullsteam Brewery", description: "Durham-based brewery focused on Southern farm ingredients.", category: "drink", userId: "user027" },
-    { lat: 36.0975, lng: -79.4378, name: "Red Oak Brewery", description: "Famous for unfiltered lagers brewed using Bavarian techniques.", category: "drink", userId: "user028" },
-  
-    // Curiosity POIs
-    { lat: 35.8841, lng: -78.8658, name: "Museum of Life and Science", description: "A hands-on science museum with a butterfly house.", category: "curiosity", userId: "user016" },
-    { lat: 35.8992, lng: -78.9405, name: "Duke Lemur Center", description: "Home to the largest colony of lemurs outside of Madagascar.", category: "curiosity", userId: "user017" },
-    { lat: 35.7806, lng: -78.6389, name: "CAM Raleigh", description: "Contemporary art museum with unique exhibits.", category: "curiosity", userId: "user018" },
-    { lat: 36.0115, lng: -78.9286, name: "Sarah P. Duke Gardens", description: "Beautiful botanical gardens with walking trails.", category: "curiosity", userId: "user029" },
-    { lat: 35.9675, lng: -78.9038, name: "Eno River State Park", description: "Great for hiking and discovering local wildlife.", category: "curiosity", userId: "user030" },
-    { lat: 35.1571, lng: -79.4197, name: "North Carolina Zoo", description: "One of the largest natural habitat zoos in the world.", category: "curiosity", userId: "user031" },
-    { lat: 35.7662, lng: -78.6336, name: "Marbles Kids Museum", description: "Interactive museum with hands-on exhibits for children.", category: "curiosity", userId: "user032" },
-    { lat: 35.2273, lng: -80.8431, name: "Discovery Place Science", description: "Popular science and technology museum in Charlotte.", category: "curiosity", userId: "user033" }    
+    { lat: 35.7796, lng: -78.6382, name: "Raleigh City Market", description: "Historic market featuring local vendors and artisan goods.", category: "market", userId: "user101" },
+    { lat: 35.9940, lng: -78.8986, name: "Durham Farmers' Market", description: "A bustling local market with fresh produce and crafts.", category: "market", userId: "user102" },
+    { lat: 35.7915, lng: -78.7811, name: "Western Wake Farmers' Market", description: "Community-driven farmers' market with a variety of local goods.", category: "market", userId: "user103" },
+    { lat: 35.7804, lng: -78.6391, name: "North Carolina State Capitol", description: "Historic government building from 1840.", category: "landmark", userId: "user104" },
+    { lat: 35.7877, lng: -78.6534, name: "Mordecai Historic Park", description: "Home of the oldest house in Raleigh.", category: "landmark", userId: "user105" },
+    { lat: 35.8992, lng: -78.9405, name: "Duke Chapel", description: "Iconic Gothic-style chapel at Duke University.", category: "landmark", userId: "user106" },
+    { lat: 35.7796, lng: -78.6393, name: "Beasley's Chicken + Honey", description: "Famous for fried chicken and waffles.", category: "restaurant", userId: "user107" },
+    { lat: 35.7864, lng: -78.6650, name: "The Pit Authentic BBQ", description: "Classic Carolina barbecue spot.", category: "restaurant", userId: "user108" },
+    { lat: 35.7912, lng: -78.6473, name: "Big Ed’s City Market Restaurant", description: "Southern comfort food and a Raleigh staple.", category: "restaurant", userId: "user109" },
+    { lat: 35.7915, lng: -78.7811, name: "William B. Umstead State Park", description: "A scenic park with hiking trails.", category: "park", userId: "user110" },
+    { lat: 35.7153, lng: -78.8820, name: "Lake Johnson Park", description: "A beautiful lake with walking trails.", category: "park", userId: "user111" },
+    { lat: 35.7712, lng: -78.6791, name: "Dorothea Dix Park", description: "Expansive park with skyline views and open fields.", category: "park", userId: "user112" },
+    { lat: 35.8033, lng: -78.7214, name: "PNC Arena", description: "Home to the Carolina Hurricanes and major concerts.", category: "arena", userId: "user113" },
+    { lat: 35.9940, lng: -78.8986, name: "Durham Bulls Athletic Park", description: "Minor league baseball stadium with a great atmosphere.", category: "arena", userId: "user114" },
+    { lat: 35.9915, lng: -78.9046, name: "Cameron Indoor Stadium", description: "Legendary basketball venue at Duke University.", category: "arena", userId: "user115" },
+    { lat: 36.0975, lng: -79.4378, name: "Red Oak Brewery", description: "Famous for unfiltered lagers brewed using Bavarian techniques.", category: "brewery", userId: "user116" },
+    { lat: 35.9916, lng: -78.9013, name: "Fullsteam Brewery", description: "Brewery specializing in Southern-inspired craft beers.", category: "brewery", userId: "user117" },
+    { lat: 35.7820, lng: -78.6455, name: "Brewery Bhavana", description: "A unique mix of brewery, dim sum, and bookstore.", category: "brewery", userId: "user118" },
+    { lat: 35.9940, lng: -78.8986, name: "The Devil’s Tramping Ground", description: "A barren circle of land where nothing grows—steeped in legend.", category: "mystery", userId: "user119" },
+    { lat: 35.9472, lng: -78.8225, name: "Crybaby Lane", description: "A haunted road with ghostly legends of crying children.", category: "mystery", userId: "user120" },
+    { lat: 36.1312, lng: -78.7006, name: "Brown Mountain Lights", description: "Mysterious glowing orbs seen in the mountains.", category: "mystery", userId: "user121" },
+    { lat: 35.7700, lng: -78.6385, name: "Historic Yates Mill", description: "A historic gristmill with rumored spiritual significance.", category: "ritual", userId: "user122" },
+    { lat: 36.0954, lng: -79.4371, name: "Occaneechi Indian Village", description: "A reconstructed village honoring the indigenous Occaneechi people.", category: "ritual", userId: "user123" },
+    { lat: 35.7967, lng: -78.7810, name: "Pullen Park Carousel", description: "A century-old carousel with folklore tied to its origins.", category: "ritual", userId: "user124" },
+    { lat: 35.9121, lng: -79.0846, name: "Bennett Place", description: "Site of the largest surrender of Confederate troops in the Civil War.", category: "battle", userId: "user125" },
+    { lat: 35.6825, lng: -78.6754, name: "Averasboro Battlefield & Museum", description: "Civil War battlefield with historical exhibits.", category: "battle", userId: "user126" },
+    { lat: 36.1312, lng: -78.7006, name: "Alamance Battleground", description: "Site of a pre-Revolutionary War battle.", category: "battle", userId: "user127" },
+    { lat: 35.7796, lng: -78.6382, name: "Site of the Halifax Resolves", description: "First formal call for independence from Britain by an American colony.", category: "historical_event", userId: "user128" },
+    { lat: 35.6891, lng: -78.5595, name: "State Fairgrounds", description: "Home of the historic North Carolina State Fair since 1853.", category: "historical_event", userId: "user129" },
+    { lat: 36.0999, lng: -80.2442, name: "Old Salem", description: "A living history museum of Moravian settlement life in NC.", category: "historical_event", userId: "user130" },
+    { lat: 35.2271, lng: -80.8431, name: "Charlotte Regional Farmers Market", description: "One of the largest farmers markets in North Carolina.", category: "market", userId: "user201" },
+    { lat: 35.9230, lng: -81.5370, name: "Hickory Farmers Market", description: "A vibrant market showcasing local produce and crafts.", category: "market", userId: "user202" },
+    { lat: 35.7704, lng: -82.6186, name: "Biltmore Estate", description: "America’s largest home, built by George Vanderbilt.", category: "landmark", userId: "user203" },
+    { lat: 35.6893, lng: -81.9931, name: "Linville Caverns", description: "A network of underground caves with unique rock formations.", category: "landmark", userId: "user204" },
+    { lat: 35.9927, lng: -78.9025, name: "Duke University Chapel", description: "An iconic Gothic chapel at the heart of Duke’s campus.", category: "landmark", userId: "user205" },
+    { lat: 35.2269, lng: -80.8433, name: "Price’s Chicken Coop", description: "A Charlotte staple for classic Southern fried chicken.", category: "restaurant", userId: "user206" },
+    { lat: 35.6127, lng: -78.5661, name: "Stephenson’s Bar-B-Q", description: "A must-visit for Eastern North Carolina barbecue.", category: "restaurant", userId: "user207" },
+    { lat: 35.6111, lng: -83.4773, name: "Great Smoky Mountains National Park", description: "One of the most-visited national parks in the U.S.", category: "park", userId: "user208" },
+    { lat: 36.0962, lng: -81.9318, name: "Grandfather Mountain", description: "Home to the famous Mile High Swinging Bridge.", category: "park", userId: "user209" },
+    { lat: 35.2251, lng: -80.8392, name: "Spectrum Center", description: "Home of the Charlotte Hornets and major concerts.", category: "arena", userId: "user210" },
+    { lat: 35.2476, lng: -80.8313, name: "Bank of America Stadium", description: "Home of the Carolina Panthers.", category: "arena", userId: "user211" },
+    { lat: 35.5939, lng: -82.5540, name: "Wicked Weed Brewing", description: "Popular craft brewery known for its creative beers.", category: "brewery", userId: "user212" },
+    { lat: 35.6096, lng: -82.5570, name: "Highland Brewing Company", description: "Asheville’s first craft brewery.", category: "brewery", userId: "user213" },
+    { lat: 35.9932, lng: -78.9023, name: "Ponysaurus Brewing Co.", description: "A Durham brewery known for its unique flavors.", category: "brewery", userId: "user214" },
+    { lat: 36.0946, lng: -81.1782, name: "Brown Mountain Lights", description: "Mysterious glowing orbs seen in the Blue Ridge Mountains.", category: "mystery", userId: "user215" },
+    { lat: 35.2840, lng: -80.7600, name: "Latta Plantation Ghosts", description: "A historic plantation with tales of ghostly encounters.", category: "mystery", userId: "user216" },
+    { lat: 36.1700, lng: -81.8195, name: "Blowing Rock", description: "A cliff where Cherokee lovers supposedly leaped together.", category: "ritual", userId: "user217" },
+    { lat: 35.3915, lng: -82.5843, name: "Jump Off Rock", description: "A scenic overlook with a tragic legend of lost love.", category: "ritual", userId: "user218" },
+    { lat: 36.1400, lng: -78.7072, name: "Guilford Courthouse National Military Park", description: "Site of a major Revolutionary War battle.", category: "battle", userId: "user219" },
+    { lat: 35.2509, lng: -81.1782, name: "Kings Mountain National Military Park", description: "Site of a pivotal Revolutionary War battle.", category: "battle", userId: "user220" },
+    { lat: 35.6843, lng: -78.5512, name: "Bentonville Battlefield", description: "Site of the largest Civil War battle in North Carolina.", category: "historical_event", userId: "user221" },
+    { lat: 36.0986, lng: -80.2407, name: "Old Salem", description: "A preserved Moravian settlement from the 1700s.", category: "historical_event", userId: "user222" },
+    { lat: 35.5951, lng: -82.5515, name: "The Omni Grove Park Inn", description: "Historic hotel with alleged haunted rooms.", category: "mystery", userId: "user223" },
+    { lat: 36.2196, lng: -81.6746, name: "Moses Cone Memorial Park", description: "A scenic park with trails and a historic mansion.", category: "park", userId: "user224" },
+    { lat: 35.7840, lng: -78.6210, name: "North Carolina Museum of Art", description: "Features historic and contemporary artwork.", category: "landmark", userId: "user225" },
+    { lat: 36.0217, lng: -78.9397, name: "Sarah P. Duke Gardens", description: "Botanical gardens at Duke University.", category: "park", userId: "user226" },
+    { lat: 35.7877, lng: -78.6463, name: "Joel Lane House", description: "Historic home known as the birthplace of Raleigh.", category: "historical_event", userId: "user227" },
+    { lat: 35.6892, lng: -82.5564, name: "Basilica of St. Lawrence", description: "A historic Catholic church with unique architecture.", category: "landmark", userId: "user228" },
+    { lat: 36.4956, lng: -79.7514, name: "Reed Gold Mine", description: "Site of America’s first gold rush in 1799.", category: "historical_event", userId: "user229" },
+    { lat: 35.2140, lng: -80.9435, name: "Carowinds", description: "Popular amusement park on the NC/SC border.", category: "landmark", userId: "user230" },
+    { lat: 35.2465, lng: -80.8562, name: "NASCAR Hall of Fame", description: "Celebrating the history of stock car racing.", category: "landmark", userId: "user231" },
+    { lat: 35.1028, lng: -83.2224, name: "Dry Falls", description: "A scenic waterfall you can walk behind.", category: "landmark", userId: "user232" },
+    { lat: 36.1350, lng: -81.6776, name: "Tweetsie Railroad", description: "A Wild West-themed amusement park.", category: "historical_event", userId: "user233" },
+    { lat: 35.3733, lng: -80.7350, name: "Historic Rosedale", description: "A well-preserved 19th-century plantation house.", category: "historical_event", userId: "user234" },
+    { lat: 35.5959, lng: -82.5515, name: "Cúrate", description: "Award-winning Spanish tapas restaurant in Asheville.", category: "restaurant", userId: "user301" },
+    { lat: 36.0999, lng: -80.2442, name: "Sweet Potatoes", description: "Southern-inspired comfort food in Winston-Salem.", category: "restaurant", userId: "user302" },
+    { lat: 35.2271, lng: -80.8431, name: "Mert’s Heart and Soul", description: "Popular for Lowcountry and soul food in Charlotte.", category: "restaurant", userId: "user303" },
+    { lat: 35.7877, lng: -78.6446, name: "Angus Barn", description: "Famous steakhouse serving aged beef and fine wine in Raleigh.", category: "restaurant", userId: "user304" },
+    { lat: 34.2257, lng: -77.9447, name: "Catch", description: "Seafood restaurant focused on local and sustainable ingredients in Wilmington.", category: "restaurant", userId: "user305" },
+    { lat: 35.4963, lng: -80.8607, name: "Kindred", description: "Highly rated modern American dining in Davidson.", category: "restaurant", userId: "user306" },
+    { lat: 35.6139, lng: -77.3722, name: "B’s Barbecue", description: "One of the best whole hog barbecue spots in the state, located in Greenville.", category: "restaurant", userId: "user307" },
+    { lat: 35.4676, lng: -83.3145, name: "Haywood Smokehouse", description: "Authentic barbecue spot in Dillsboro known for its smoky flavors.", category: "restaurant", userId: "user308" },
+    { lat: 35.7596, lng: -78.8658, name: "The Fearrington House", description: "Fine dining experience in a charming countryside setting.", category: "restaurant", userId: "user309" },
+    { lat: 35.7765, lng: -78.6360, name: "Poole’s Diner", description: "Iconic Raleigh eatery famous for its mac and cheese.", category: "restaurant", userId: "user310" },
+    { lat: 35.9606, lng: -80.0053, name: "Piedmont Triad Farmers Market", description: "A hub for fresh produce and local goods in Greensboro.", category: "market", userId: "user311" },
+    { lat: 35.0527, lng: -78.8784, name: "Dirtbag Ales Farmers Market", description: "A brewery-based farmers market with local goods in Hope Mills.", category: "market", userId: "user312" },
+    { lat: 35.9712, lng: -78.9015, name: "Durham Farmers' Market", description: "A lively weekend market featuring fresh produce and artisan goods.", category: "market", userId: "user313" },
+    { lat: 35.5685, lng: -77.3968, name: "Pitt County Farmers Market", description: "A popular spot for fresh seafood, vegetables, and crafts.", category: "market", userId: "user314" },
+    { lat: 35.2072, lng: -80.8341, name: "South End Market", description: "Charlotte’s go-to place for organic produce and handmade goods.", category: "market", userId: "user315" },
+    { lat: 35.5958, lng: -82.5534, name: "Burial Beer Co.", description: "Known for its innovative craft beer and rustic taproom in Asheville.", category: "brewery", userId: "user316" },
+    { lat: 36.0999, lng: -80.2442, name: "Foothills Brewing", description: "A staple of the North Carolina craft beer scene in Winston-Salem.", category: "brewery", userId: "user317" },
+    { lat: 35.9932, lng: -78.8986, name: "Fullsteam Brewery", description: "A Durham brewery with a focus on Southern farm-to-glass beers.", category: "brewery", userId: "user318" },
+    { lat: 35.2331, lng: -80.8461, name: "Olde Mecklenburg Brewery", description: "Charlotte’s oldest and largest craft brewery.", category: "brewery", userId: "user319" },
+    { lat: 36.1263, lng: -81.6784, name: "Booneshine Brewing Company", description: "Boone’s favorite craft brewery with mountain views.", category: "brewery", userId: "user320" },
+    { lat: 35.9154, lng: -81.5384, name: "Blowing Rock", description: "Scenic cliff with breathtaking views and Native American legends.", category: "landmark", userId: "user321" },
+    { lat: 35.5300, lng: -82.6271, name: "Blue Ridge Parkway", description: "One of the most scenic drives in the country, cutting through NC.", category: "landmark", userId: "user322" },
+    { lat: 35.2308, lng: -80.8460, name: "Billy Graham Library", description: "A museum dedicated to the life of the famous evangelist.", category: "landmark", userId: "user323" },
+    { lat: 35.7855, lng: -78.6831, name: "North Carolina State Capitol", description: "Historic government building in downtown Raleigh.", category: "landmark", userId: "user324" },
+    { lat: 35.3856, lng: -77.9945, name: "Ava Gardner Museum", description: "Celebrating the legacy of the famous actress from North Carolina.", category: "landmark", userId: "user325" }
   ];
   // Convert and display each POI
   predefinedPOIs.forEach(poiData => {
@@ -187,19 +262,17 @@ export function initializeMap(mapContainerId, router) {
     console.error("No map container ID provided.");
     return;
   }
-  // Create and return the map instance (default view: Raleigh)
   const map = L.map(mapContainerId).setView([35.788, -78.644], 13);
-
   // Add tile layer
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(map);
+  // Locate user and zoom to their location
+  displayUserLocation(map);
   // Fetch and display all POIs
   const poiData = getAllPOIs();
   poiData.features.forEach(poi => {
-    const { coordinates } = poi.geometry;
-    // Display all POIs found in the database
     displayPOI(map, poi, router);
   });
   displayPredefinedPOIs(map, router);
@@ -235,4 +308,33 @@ export function addMapClickListener(map) {
     }, 10);
   }
   map.on("click", onMapClick);
+}
+
+
+
+export function displayUserLocation(map) {
+  const userIcon = L.icon({
+    iconUrl: beerPic, // Replace with actual user icon
+    iconSize: [32, 32],
+    iconAnchor: [16, 32]
+  });
+  let userMarker;
+  // Start continuous geolocation tracking
+  map.locate({ setView: true, maxZoom: 16, watch: true });
+  // Event: On location found, update marker position
+  map.on('locationfound', (e) => {
+    // If a marker already exists, update its position
+    if (userMarker) {
+      userMarker.setLatLng(e.latlng);
+    } else {
+      // If no marker exists, create one at the user's location
+      userMarker = L.marker(e.latlng, { icon: userIcon })
+        .addTo(map)
+        .bindPopup("You are here");
+    }
+  });
+  // Event: On location error
+  map.on('locationerror', (e) => {
+    console.error("Geolocation error:", e.message);
+  });
 }
