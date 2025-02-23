@@ -11,6 +11,7 @@ let map;
 
 onMounted(() => {
   map = initializeMap('map', router);
+
   // Add click listener to create new POIs
   addMapClickListener(map);
 });

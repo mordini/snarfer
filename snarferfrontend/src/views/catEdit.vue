@@ -1,28 +1,38 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { addPOI } from '@/components/useMap';
+import { addPOI, updatePOI, getAllPOIs } from '@/components/useMap';
 
 const route = useRoute();
 const router = useRouter();
 
-// Check if we are editing an existing POI or creating a new one
 const poiId = ref(route.query.poiId || null);
 const lat = ref(route.query.lat || '');
 const lng = ref(route.query.lng || '');
+const isEditing = ref(false);
 
 // Form fields
 const poiName = ref('');
 const poiDescription = ref('');
+const poiCategory = ref('');
 
 onMounted(() => {
   if (poiId.value) {
-    // Fetch existing POI details (Placeholder data)
-    poiName.value = `POI ${poiId.value}`;
-    poiDescription.value = `Description for POI ${poiId.value}`;
-  } else if (lat.value && lng.value) {
-    // If coming from map click, pre-fill lat/lng but leave name/description empty
-    poiName.value = `New POI at ${lat.value}, ${lng.value}`;
+    isEditing.value = true;
+    const poiData = getAllPOIs();
+    console.log("We see poiId has a value, so this must be editing. Current poiData on load(should be all POIs):", poiData.features);
+    const poi = poiData.features.find(poi => poi.id == poiId.value);
+    console.log("POI that we are altering right now:", poi);
+    if (poi) {
+      console.log("I guess the POI exists. Now we are reassigning the values.");
+      poiName.value = poi.properties.name;
+      poiDescription.value = poi.properties.description;
+      poiCategory.value = poi.properties.category || '';
+      lat.value = poi.geometry.coordinates[1];
+      lng.value = poi.geometry.coordinates[0];
+    } else {
+      console.error("POI not found.");
+    }
   }
 });
 
@@ -32,22 +42,28 @@ const saveChanges = () => {
     return;
   }
 
-  // If creating a new POI
-  if (!poiId.value && lat.value && lng.value) {
-    addPOI(lat.value, lng.value, poiName.value, poiDescription.value, "user123");
+  if (isEditing.value) {
+    // Create the object with updated data
+    const updatedPOI = {
+      name: poiName.value,
+      description: poiDescription.value,
+      category: poiCategory.value
+    };
+
+    updatePOI(poiId.value, updatedPOI);
+    console.log("POI updated with this: ", updatedPOI);
+  } else {
+    addPOI(lat.value, lng.value, poiName.value, poiDescription.value, poiCategory.value, "user123");
   }
 
-  // Redirect back to map after saving
   router.push('/homePage');
 };
-
-
 
 </script>
 
 <template>
   <div class="container">
-    <h1>{{ poiId ? `Edit POI ${poiId}` : "Create a New POI" }}</h1>
+    <h1>{{ isEditing ? `Edit POI` : "Create a New POI" }}</h1>
 
     <label>POI Name:</label>
     <input v-model="poiName" type="text" placeholder="Enter POI name" />
@@ -55,10 +71,13 @@ const saveChanges = () => {
     <label>Description:</label>
     <textarea v-model="poiDescription" placeholder="Enter details"></textarea>
 
+    <label>Category:</label>
+    <input v-model="poiCategory" type="text" placeholder="Enter category" />
+
     <label v-if="lat && lng">Coordinates:</label>
     <p v-if="lat && lng">Lat: {{ lat }}, Lng: {{ lng }}</p>
 
-    <button @click="saveChanges">Save POI</button>
+    <button @click="saveChanges">{{ isEditing ? "Edit Changes" : "Save POI" }}</button>
     <button @click="router.push('/homePage')">Cancel</button>
   </div>
 </template>
