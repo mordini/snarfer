@@ -48,13 +48,14 @@ Is called inside of mapView.vue.
 
 ✅ Navigation mode.
 
-✅ Add catalog entries to POI markers.
-
 ✅ Add POI search bar.
 
 ✅ Create questsExplore page.
 
-✅ Add catalog entries to POI markers.
+✅ Expand homePage to include "Featured Quests", "Featured POIs", link to questsExplore, POI search bar, and link to user info.
+
+✅ Refine UX/UI: Define color palettes and imagery style(in progress). Beautify layout. User testing.
+
 
 ---
 
