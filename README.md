@@ -37,26 +37,6 @@ Holds initializeMap, createMarker, onMapClick, etc.
 Is called inside of mapView.vue.
 
 
-
----
-
-🌟 ToDo
-
-✅ Databases for POIs, Quests, and users.
-
-✅ Color coding map components.
-
-✅ Navigation mode.
-
-✅ Add POI search bar.
-
-✅ Create questsExplore page.
-
-✅ Expand homePage to include "Featured Quests", "Featured POIs", link to questsExplore, POI search bar, and link to user info.
-
-✅ Refine UX/UI: Define color palettes and imagery style(in progress). Beautify layout. User testing.
-
-
 ---
 
 🤝 Contributing
