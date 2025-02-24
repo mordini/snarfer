@@ -1,10 +1,8 @@
 <script setup>
-// TODO:A. create/edit mode. Users can click on a point and make it a POI. Or click on a POI and edit it. Permissions required.
-//  B. navigation mode. Current location updated frequently. POIs are hidden. 
-//  C. explore POIs mode. POIs and "conquered" areas are shown(color coded). Users can click on a POI to see details.
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { initializeMap, addMapClickListener, addPOI } from '@/components/useMap';
+import { initializeMap, addMapClickListener} from '@/components/useMap';
+
 
 const router = useRouter();
 let map;

@@ -3,17 +3,18 @@
 
 import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
-import sword_icon from '@/assets/sword_and_shield.jpg';
+import sword_icon from '@/assets/boot1.png';
 import defaultIconSrc from '@/assets/arena.png';
-import sandwichPic from '@/assets/beerMug.png';
+import sandwichPic from '@/assets/boot1.png';
 import beerPic from '@/assets/beerMug.png';
 import marketIcon from '@/assets/market.png'; // Marketplace icon
-import landmarkIcon from '@/assets/market.png'; // Landmark or monument icon
+import landmarkIcon from '@/assets/adventurerCard.png'; // Landmark or monument icon
 import treeIcon from '@/assets/tree.png'; // Park and nature icon
 import stadiumIcon from '@/assets/arena.png'; // Arena or sports venue icon
-import questionMarkIcon from '@/assets/obelisk.png'; // Mystery locations icon
+import questionMarkIcon from '@/assets/treasureClosed.png'; // Mystery locations icon
 import ritualIcon from '@/assets/obelisk.png'; // Ritual or legend-related icon
-import scrollIcon from '@/assets/swords.png'; // Historical event document or scroll icon
+import scrollIcon from '@/assets/scroll.png'; // Historical event document or scroll icon
+import adventurerIcon from '@/assets/adventurerSpooky.png'; // Adventurer icon for user location
 
 
 
@@ -314,7 +315,7 @@ export function addMapClickListener(map) {
 
 export function displayUserLocation(map) {
   const userIcon = L.icon({
-    iconUrl: beerPic, // Replace with actual user icon
+    iconUrl: adventurerIcon,
     iconSize: [32, 32],
     iconAnchor: [16, 32]
   });
