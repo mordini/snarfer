@@ -1,80 +1,140 @@
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/userStore';
 
-const username = ref('')
-const password = ref('')
+const userStore = useUserStore();
+const router = useRouter();
 
-// Dummy Login Function.   FIX THIS
-const handleLogin = () => {
-  console.log('Username:', username.value)
-  console.log('Password:', password.value)
-}
+const username = ref('');
+const password = ref('');
+const message = ref('');
+
+const createUser = () => {
+  try {
+    userStore.createUser(username.value, password.value);
+    message.value = '🛡️ Account successfully created!';
+    setTimeout(() => router.push('/homePage'), 2000); // Redirect after success
+  } catch (error) {
+    message.value = `⚠️ ${error.message}`;
+  }
+};
+
+const goBackHome = () => {
+  router.push('/');
+};
 </script>
 
 <template>
-  <header>  
-    <div class="wrapper">
-      <h1>Create Account</h1>
-    </div>
-  </header>
+  <div class="container">
+    <div class="card">
+      <h1>🗺️ Create Your Explorer Account</h1>
+      <p class="description">Begin your journey with Snarfari! Choose your name wisely, traveler.</p>
 
-  <main>
-    <div class="login-container">
-      <input type="text" v-model="username" placeholder="Username" class="input-box" />
-      <input type="password" v-model="password" placeholder="Password" class="input-box" />
-      <button class="login-button" @click="handleLogin">Login</button>
+      <input v-model="username" placeholder="🖋️ Username" class="input-box" />
+      <input v-model="password" type="password" placeholder="🔑 Password" class="input-box" />
+      
+      <button @click="createUser" class="create-button">⚔️ Create Account</button>
+      <button @click="goBackHome" class="back-button">🏠 Return Home</button>
+
+      <p v-if="message" class="message">{{ message }}</p>
     </div>
-    <div class="register-container">
-      <button class="register-button" @click="handleRegister">Create New Account</button>
-    </div>
-  </main>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  text-align: center;
-}
-
-h1 {
-  font-size: 1.8rem;
-  color: #35495e;
-}
-
-.login-container {
+/* Background Styling */
+.container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  width: 100%;
-  max-width: 300px;
-  margin: 50px auto;
+  align-items: center;
+  height: 100vh;
+  background: url('/assets/parchment-bg.jpg') no-repeat center center fixed;
+  background-size: cover;
 }
 
+/* Card Styling */
+.card {
+  background: rgba(255, 248, 220, 0.9); /* Parchment-like */
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  max-width: 400px;
+  border: 3px solid #8B4513; /* Old map border */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Title Styling */
+h1 {
+  font-family: 'Pirata One', cursive;
+  font-size: 24px;
+  color: #4B3B2A;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Description */
+.description {
+  font-style: italic;
+  font-size: 14px;
+  color: #6B4226;
+}
+
+/* Input Fields */
 .input-box {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
   font-size: 16px;
-  border: 1px solid #ccc;
+  border: 2px solid #8B4513;
   border-radius: 5px;
+  background-color: #FAEBD7;
+  color: #4B3B2A;
   text-align: center;
+  font-family: 'IM Fell English', serif;
 }
 
-.login-button {
+/* Buttons */
+.create-button, .back-button {
   width: 100%;
   padding: 10px;
+  margin: 10px 5px;
   font-size: 16px;
-  color: white;
-  background-color: #42b883;
+  font-family: 'IM Fell English', serif;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 10px;
+  transition: 0.3s;
 }
 
-.login-button:hover {
-  background-color: #35495e;
+.create-button {
+  background: #D2691E;
+  color: white;
+  box-shadow: 0 4px #8B4513;
+}
+
+.create-button:hover {
+  background: #8B4513;
+  box-shadow: 0 2px #5A3222;
+  transform: translateY(2px);
+}
+
+.back-button {
+  background: #6B4226;
+  color: white;
+  box-shadow: 0 4px #4B2A1A;
+}
+
+.back-button:hover {
+  background: #4B2A1A;
+  box-shadow: 0 2px #2A180E;
+  transform: translateY(2px);
+}
+
+/* Message */
+.message {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #D2691E;
 }
 </style>

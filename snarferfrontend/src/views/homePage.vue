@@ -7,11 +7,15 @@ const router = useRouter()
 const goToMap = () => {
   router.push('/map')
 }
+const goToProfileView = () => {
+  router.push('/profile')
+}
 </script>
 
 <template>
   <div class="home-container">
     <button @click="goToMap">Map</button>
+    <button @click="goToProfileView">Profile</button>
   </div>>
 </template>
 

@@ -1,35 +1,31 @@
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/userStore';
 
-defineProps({
-  msg: {
-    type: String,
-    required: true,
-  },
-})
+const userStore = useUserStore();
+const router = useRouter();
 
-const router = useRouter()
-const username = ref('')
-const password = ref('')
+const username = ref('');
+const password = ref('');
+const errorMessage = ref('');
 
-// Dummy Login Function.   FIX THIS
 const handleLogin = () => {
-  console.log('Username:', username.value)
-  console.log('Password:', password.value)
-  if (username.value === 'Explorer' && password.value === 'Explorer') {
-    router.push('/homePage') // Navigate to home page
-  } else {
-    alert('Invalid username or password')
+  try {
+    userStore.loginUser(username.value, password.value);
+    router.push('/homePage'); // Navigate to home page
+  } catch (error) {
+    errorMessage.value = error.message;
   }
-}
+};
+
 const goToCreateAccountPage = () => {
-  router.push('/createAccount') // Navigate to createAccount page
-}
+  router.push('/createAccount'); // Navigate to create account page
+};
 </script>
 
 <template>
-  <header>  
+  <header>
     <div class="wrapper">
       <h1>Log in to Snarfer</h1>
     </div>
@@ -40,6 +36,7 @@ const goToCreateAccountPage = () => {
       <input type="text" v-model="username" placeholder="Username" class="input-box" />
       <input type="password" v-model="password" placeholder="Password" class="input-box" />
       <button class="login-button" @click="handleLogin">Login</button>
+      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
     </div>
     <div class="register-container">
       <button class="register-button" @click="goToCreateAccountPage">Create New Account</button>
@@ -93,5 +90,15 @@ h1 {
 
 .login-button:hover {
   background-color: #35495e;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.register-container {
+  margin-top: 20px;
 }
 </style>
