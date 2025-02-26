@@ -1,4 +1,5 @@
 <script setup>
+// Currently Unused
 import { ref, onMounted, defineProps } from 'vue'
 import { DotLottieVue } from '@lottiefiles/dotlottie-vue'
 

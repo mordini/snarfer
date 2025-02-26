@@ -3,12 +3,12 @@
 
 import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
-import sword_icon from '@/assets/boot1.png';
-import defaultIconSrc from '@/assets/arena.png';
-import sandwichPic from '@/assets/boot1.png';
+import sword_icon from '@/assets/swords.png';
+import defaultIconSrc from '@/assets/compass.png';
+import sandwichPic from '@/assets/marketStall.png';
 import beerPic from '@/assets/beerMug.png';
 import marketIcon from '@/assets/market.png'; // Marketplace icon
-import landmarkIcon from '@/assets/adventurerCard.png'; // Landmark or monument icon
+import landmarkIcon from '@/assets/rune.png'; // Landmark or monument icon
 import treeIcon from '@/assets/tree.png'; // Park and nature icon
 import stadiumIcon from '@/assets/arena.png'; // Arena or sports venue icon
 import questionMarkIcon from '@/assets/treasureClosed.png'; // Mystery locations icon
