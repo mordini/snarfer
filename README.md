@@ -10,13 +10,12 @@ The splash page. First thing users see if they aren't logged in.
 
 Connects to login and user creation.
 
-Maybe should connect to an "About Us" or "What is Snarfer" page?
 
 2. **homePage.vue**
    
-Currently, just holds mapView, but will hold Featured Quests, basic profile info, and navigation to all other main elements.
+Holds Featured Quests component(featuredQuests.vue in src/components), featured POIs, basic profile info(featuredProfile.vue in src/components), and navigation to all other main elements.
 
-Will be connected to POI search, Quests search, mapView, and profileView.
+Connected to POI search, Quests search, mapView, profileView, catalog, and leaderboards.
 
 3. **mapView.vue**
 
@@ -24,20 +23,52 @@ Displays a full-screen interactive map.
 
 Uses Leaflet to load OpenStreetMap tiles.
 
-Formats the map display.
-
-Highly ranked users will gain the ability to click on a spot and create a POI there, or edit existing POIs.
+Highly ranked users will gain the ability to click on a spot and request to create a POI there, or edit existing POIs. But changes must be approved by us? Or a council of some sort?
 
 4. **useMap.js**
 
 Defines JS functions for map interaction.
 
-Holds initializeMap, createMarker, onMapClick, etc.
+Imports many icons and maps them to categories of POIs. Has exportable functions like "addPOI", "updatePOI", "initializeMap", and "displayUserLocation".
 
 Is called inside of mapView.vue.
 
 
 ---
+**Next Up**
+1. Proper databases for Users, POIs, and Quests.
+
+2. Finish profileView.vue and create a profile component for the home page called featuredProfile.vue.
+
+3. Same thing with Quests. Make a page to search for quests and a component that shows featured quests on the home page.
+
+4. Restrict POI creation.
+
+5. Improve src/views/catEdit.vue to include pictures, buttons for categories, initialize with existing info on the POI, change name to something like editPOI.
+
+6. Add logbook.
+
+7. Add leaderboard.
+
+8. Test for all platforms.
+
+
+
+---
+**Questions/Ideas**
+1. Users should be able to DM each other. 
+
+2. Do we need an admin view? For creating quests, approving new POIs/POI edits, changing featured POIs and featured Quests, etc.
+
+3. Markeroni had a blog. Is that a good idea here?
+
+4. What security issues do we need to consider? How to counter each of them?
+
+5. Is there an AI solution for verifying users' attendance at a POI? Perhaps via image recognition?
+
+
+---
+
 
 🤝 Contributing
 Want to help improve this project?
