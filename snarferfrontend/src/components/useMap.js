@@ -124,7 +124,7 @@ export function displayPOI(map, poi, router) {
 
 
 
-function displayPredefinedPOIs(map, router) {
+export function displayPredefinedPOIs(map, router) {
   const predefinedPOIs = [
     { lat: 35.7796, lng: -78.6382, name: "Raleigh City Market", description: "Historic market featuring local vendors and artisan goods.", category: "market", userId: "user101" },
     { lat: 35.9940, lng: -78.8986, name: "Durham Farmers' Market", description: "A bustling local market with fresh produce and crafts.", category: "market", userId: "user102" },
