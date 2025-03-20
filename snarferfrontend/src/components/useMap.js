@@ -116,7 +116,7 @@ export function displayPOI(map, poi, router) {
   editButton.style.marginTop = "5px";
   editButton.style.cursor = "pointer";
   editButton.onclick = () => {
-    router.push(`/catEdit?poiId=${poi.id}`);
+    router.push(`/editPOI?poiId=${poi.id}`);
   };
   popupContent.appendChild(editButton);
   marker.bindPopup(popupContent);
@@ -124,7 +124,7 @@ export function displayPOI(map, poi, router) {
 
 
 
-function displayPredefinedPOIs(map, router) {
+export function displayPredefinedPOIs(map, router) {
   const predefinedPOIs = [
     { lat: 35.7796, lng: -78.6382, name: "Raleigh City Market", description: "Historic market featuring local vendors and artisan goods.", category: "market", userId: "user101" },
     { lat: 35.9940, lng: -78.8986, name: "Durham Farmers' Market", description: "A bustling local market with fresh produce and crafts.", category: "market", userId: "user102" },
@@ -304,7 +304,7 @@ export function addMapClickListener(map) {
 
     setTimeout(() => {
       document.getElementById("create-poi-btn").addEventListener("click", () => {
-        window.location.href = `/catEdit?lat=${lat}&lng=${lng}`;
+        window.location.href = `/editPOI?lat=${lat}&lng=${lng}`;
       });
     }, 10);
   }
@@ -316,8 +316,8 @@ export function addMapClickListener(map) {
 export function displayUserLocation(map) {
   const userIcon = L.icon({
     iconUrl: adventurerIcon,
-    iconSize: [32, 32],
-    iconAnchor: [16, 32]
+    iconSize: [64, 64],
+    iconAnchor: [32, 64]
   });
   let userMarker;
   // Start continuous geolocation tracking

@@ -2,7 +2,10 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { addPOI, updatePOI, getAllPOIs } from '@/components/useMap';
+import { useUserStore } from '@/stores/userStore';
 
+
+const userStore = useUserStore();
 const route = useRoute();
 const router = useRouter();
 
@@ -20,11 +23,10 @@ onMounted(() => {
   if (poiId.value) {
     isEditing.value = true;
     const poiData = getAllPOIs();
-    console.log("We see poiId has a value, so this must be editing. Current poiData on load(should be all POIs):", poiData.features);
+    //We see poiId has a value, so this must be editing. Below we are finding the POI that we are editing.
     const poi = poiData.features.find(poi => poi.id == poiId.value);
-    console.log("POI that we are altering right now:", poi);
     if (poi) {
-      console.log("I guess the POI exists. Now we are reassigning the values.");
+      // poi exists. Now we reassign the values
       poiName.value = poi.properties.name;
       poiDescription.value = poi.properties.description;
       poiCategory.value = poi.properties.category || '';
@@ -51,12 +53,18 @@ const saveChanges = () => {
     };
 
     updatePOI(poiId.value, updatedPOI);
-    console.log("POI updated with this: ", updatedPOI);
+    userStore.incrementPoisEdited();
+    
   } else {
-    addPOI(lat.value, lng.value, poiName.value, poiDescription.value, poiCategory.value, "user123");
+    addPOI(lat.value, lng.value, poiName.value, poiDescription.value, poiCategory.value, userStore.currentUser.username);
+    userStore.incrementPoisCreated();
   }
+  setTimeout(() => {
+  alert("POI saved successfully!");
+  router.push('/map');
+}, 500);
 
-  router.push('/homePage');
+
 };
 
 </script>
@@ -72,13 +80,26 @@ const saveChanges = () => {
     <textarea v-model="poiDescription" placeholder="Enter details"></textarea>
 
     <label>Category:</label>
-    <input v-model="poiCategory" type="text" placeholder="Enter category" />
+    <select v-model="poiCategory">
+      <option value="market">Store</option>
+      <option value="landmark">Landmark</option>
+      <option value="restaurant">Restaurant</option>
+      <option value="park">Park</option>
+      <option value="arena">Arena</option>
+      <option value="brewery">Brewery</option>
+      <option value="mystery">Mystery</option>
+      <option value="ritual">Ritual</option>
+      <option value="battle">Battle</option>
+      <option value="historical_event">Historical Event</option>
+
+    </select>
+
 
     <label v-if="lat && lng">Coordinates:</label>
     <p v-if="lat && lng">Lat: {{ lat }}, Lng: {{ lng }}</p>
 
     <button @click="saveChanges">{{ isEditing ? "Edit Changes" : "Save POI" }}</button>
-    <button @click="router.push('/homePage')">Cancel</button>
+    <button @click="router.push('/map')">Cancel</button>
   </div>
 </template>
 

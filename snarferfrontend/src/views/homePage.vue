@@ -1,26 +1,32 @@
 <script setup>
-import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router';
+import profileComponent from '../components/profileComponent.vue';
 
 
-const router = useRouter()
+
+const router = useRouter();
 
 const goToMap = () => {
-  router.push('/map')
+  router.push('/map');
 }
 const goToProfileView = () => {
-  router.push('/profile')
+  router.push('/profile');
 }
+
 </script>
 
 <template>
   <div class="home-container">
     <button @click="goToMap">Map</button>
     <button @click="goToProfileView">Profile</button>
-  </div>>
+  
+  </div>
+  <div>
+    <profileComponent />
+  </div>
 </template>
 
 <style scoped>
-/* Center button */
 .home-container {
   display: flex;
   justify-content: center;

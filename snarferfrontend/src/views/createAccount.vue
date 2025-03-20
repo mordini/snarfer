@@ -14,7 +14,7 @@ const createUser = () => {
   try {
     userStore.createUser(username.value, password.value);
     message.value = '🛡️ Account successfully created!';
-    setTimeout(() => router.push('/homePage'), 2000); // Redirect after success
+    setTimeout(() => router.push('/login'), 2000); // Redirect after success
   } catch (error) {
     message.value = `⚠️ ${error.message}`;
   }
@@ -49,18 +49,17 @@ const goBackHome = () => {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: url('/assets/parchment-bg.jpg') no-repeat center center fixed;
   background-size: cover;
 }
 
 /* Card Styling */
 .card {
-  background: rgba(255, 248, 220, 0.9); /* Parchment-like */
+  background: rgba(255, 248, 220, 0.9);
   padding: 30px;
   border-radius: 15px;
   text-align: center;
   max-width: 400px;
-  border: 3px solid #8B4513; /* Old map border */
+  border: 3px solid #8B4513;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
