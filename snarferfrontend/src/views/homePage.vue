@@ -3,6 +3,7 @@ import { useRouter } from 'vue-router';
 import profileComponent from '../components/profileComponent.vue';
 
 
+
 const router = useRouter();
 
 const goToMap = () => {
@@ -11,12 +12,14 @@ const goToMap = () => {
 const goToProfileView = () => {
   router.push('/profile');
 }
+
 </script>
 
 <template>
   <div class="home-container">
     <button @click="goToMap">Map</button>
     <button @click="goToProfileView">Profile</button>
+  
   </div>
   <div>
     <profileComponent />
@@ -24,7 +27,6 @@ const goToProfileView = () => {
 </template>
 
 <style scoped>
-/* Center button */
 .home-container {
   display: flex;
   justify-content: center;
