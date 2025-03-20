@@ -38,13 +38,9 @@ Is called inside of mapView.vue.
 **Next Up**
 1. Proper databases for Users, POIs, and Quests.
 
-2. Finish profileView.vue and create a profile component for the home page called featuredProfile.vue.
-
-3. Same thing with Quests. Make a page to search for quests and a component that shows featured quests on the home page.
+3. Make a page to search for quests and a component that shows featured quests on the home page.
 
 4. Restrict POI creation.
-
-5. Improve src/views/catEdit.vue to include pictures, buttons for categories, initialize with existing info on the POI, change name to something like editPOI.
 
 6. Add logbook.
 
