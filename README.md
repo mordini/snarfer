@@ -35,22 +35,6 @@ Is called inside of mapView.vue.
 
 
 ---
-**Next Up**
-1. Proper databases for Users, POIs, and Quests.
-
-3. Make a page to search for quests and a component that shows featured quests on the home page.
-
-4. Restrict POI creation.
-
-6. Add logbook.
-
-7. Add leaderboard.
-
-8. Test for all platforms.
-
-
-
----
 **Questions/Ideas**
 1. Users should be able to DM each other. 
 
